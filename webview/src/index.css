@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* VS Code CSS Variables - will be overridden by VS Code theme */
+    --vscode-editor-background: #1e1e1e;
+    --vscode-editor-foreground: #d4d4d4;
+    --vscode-sideBar-background: #252526;
+    --vscode-sideBar-border: #3c3c3c;
+    --vscode-panel-background: #1e1e1e;
+    --vscode-panel-border: #3c3c3c;
+    --vscode-descriptionForeground: #cccccc;
+    --vscode-disabledForeground: #6a9955;
+    --vscode-focusBorder: #007acc;
+    --vscode-button-background: #0e639c;
+    --vscode-button-hoverBackground: #1177bb;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background-primary text-foreground-primary font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .chat-bubble {
+    @apply rounded-lg p-4 max-w-[85%] animate-fade-in;
+  }
+
+  .chat-bubble-user {
+    @apply bg-codenection-600 text-white ml-auto;
+  }
+
+  .chat-bubble-ai {
+    @apply bg-background-secondary text-foreground-primary border border-border-primary;
+  }
+
+  .code-block {
+    @apply bg-background-secondary border border-border-primary rounded-md p-4 font-mono text-sm overflow-x-auto;
+  }
+
+  .sidebar-item {
+    @apply flex items-center px-3 py-2 text-sm text-foreground-secondary hover:text-foreground-primary hover:bg-background-secondary rounded-md transition-colors cursor-pointer;
+  }
+
+  .sidebar-item.active {
+    @apply bg-background-secondary text-foreground-primary;
+  }
+
+  .button-primary {
+    @apply bg-accent-secondary hover:bg-accent-hover text-white px-4 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2;
+  }
+
+  .button-secondary {
+    @apply bg-background-secondary hover:bg-background-tertiary text-foreground-primary border border-border-primary px-4 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2;
+  }
+
+  .input-field {
+    @apply bg-background-secondary border border-border-primary text-foreground-primary placeholder-foreground-muted rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--vscode-scrollbarSlider-background);
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: var(--vscode-scrollbarSlider-hoverBackground);
+  }
+} 

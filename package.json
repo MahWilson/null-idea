@@ -1,0 +1,179 @@
+{
+  "name": "documind-ai-docs",
+  "displayName": "Documind AI Docs Assistant",
+  "description": "AI-powered documentation assistant with RAG capabilities for VS Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:codenection.openChat",
+    "onCommand:codenection.focusChat",
+    "onCommand:codenection.uploadDocument",
+    "onCommand:codenection.searchDocs",
+    "onCommand:codenection.configureAI",
+    "onView:codenection.aiChat"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "codenection.aiChat",
+          "name": "🤖 Documind AI",
+          "type": "webview",
+          "when": "true"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "codenection.focusChat",
+        "title": "Focus Documind AI",
+        "category": "Documind"
+      },
+      {
+        "command": "codenection.openChat",
+        "title": "Open Documind AI",
+        "category": "Documind"
+      },
+      {
+        "command": "codenection.uploadDocument",
+        "title": "Upload Document for AI Learning",
+        "category": "Documind"
+      },
+      {
+        "command": "codenection.searchDocs",
+        "title": "Search Documentation",
+        "category": "Documind"
+      },
+      {
+        "command": "codenection.askAboutSelection",
+        "title": "Ask AI About Selection",
+        "category": "Documind"
+      },
+      {
+        "command": "codenection.configureAI",
+        "title": "Configure AI Settings",
+        "category": "Documind"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "codenection.openChat",
+          "when": "true"
+        },
+        {
+          "command": "codenection.uploadDocument",
+          "when": "true"
+        },
+        {
+          "command": "codenection.configureAI",
+          "when": "true"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "codenection.uploadDocument",
+          "group": "navigation",
+          "when": "resourceExtname == .md || resourceExtname == .txt || resourceExtname == .pdf"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "codenection.askAboutSelection",
+          "group": "navigation",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "codenection.openChat",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      }
+    ],
+    "configuration": {
+      "title": "Documind AI",
+      "properties": {
+        "codenection.ai.provider": {
+          "type": "string",
+          "enum": [
+            "mock",
+            "openai",
+            "anthropic",
+            "local"
+          ],
+          "default": "mock",
+          "description": "AI provider to use for generating responses"
+        },
+        "documind.docsFolder": {
+          "type": "string",
+          "default": "docs/",
+          "description": "Default folder where documentation is generated"
+        },
+        "documind.autoGenerateOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "When enabled, generate or update documentation when files are saved"
+        },
+        "documind.statusBarNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Documind notifications in the VS Code status bar"
+        },
+        "codenection.ai.model": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "AI model to use (e.g., gpt-4, claude-3-sonnet-20240229)"
+        },
+        "codenection.ai.temperature": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2,
+          "default": 0.7,
+          "description": "AI response creativity (0 = focused, 2 = creative)"
+        },
+        "codenection.ai.maxTokens": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 4000,
+          "default": 1000,
+          "description": "Maximum tokens in AI response"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "webview:build": "cd webview && npm run build",
+    "webview:dev": "cd webview && npm run dev",
+    "webview:install": "cd webview && npm install",
+    "extension:install": "npm install",
+    "extension:package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.20.0"
+  }
+}
